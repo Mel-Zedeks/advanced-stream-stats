@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import {defineProps, onMounted} from "vue";
+import {defineProps, onMounted, ref} from "vue";
 import dropIn from "braintree-web-drop-in"
 import {useForm} from "@inertiajs/inertia-vue3";
 

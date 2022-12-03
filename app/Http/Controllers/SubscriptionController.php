@@ -29,7 +29,7 @@ class SubscriptionController extends Controller
     {
         $plans = $this->service->getPlans();
         $plan=Arr::get($plans,$plan);
-        dd($plan);
+//        dd($plan);
         $userToken = $request->user()->getToken();
         return Inertia::render('Subscription/Create',
             compact('plan', 'userToken'));
