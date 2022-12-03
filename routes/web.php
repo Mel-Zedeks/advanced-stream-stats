@@ -30,4 +30,9 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/logout', [\App\Http\Controllers\LoginController::class, 'destroy'])->name('logout');
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('/subscription/plan', [\App\Http\Controllers\SubscriptionController::class, 'index'])->name('subscription.index');
+    Route::get('/subscription/{plan}', [\App\Http\Controllers\SubscriptionController::class, 'create'])->name('subscription.create');
+    Route::post('/subscription', [\App\Http\Controllers\SubscriptionController::class, 'store'])->name('subscription.store');
+
+
 });

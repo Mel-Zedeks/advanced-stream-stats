@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -13,10 +14,15 @@ class AuthService
 {
 
     public function registerUser(array $request){
-        $request['password']=Hash::make($request['password']);
-        $user=User::create($request);
-        $user->assignRole('User');
-        Auth::loginUsingId($user->id);
+
+        DB::transaction(function ()use ($request){
+            $request['password']=Hash::make($request['password']);
+            $user=User::create($request);
+            $user->assignRole('User');
+            $user->createBraintreeCustomer();
+            Auth::loginUsingId($user->id);
+        });
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

@@ -25,9 +25,9 @@
                         </svg>
                     </button>
 
-                    <a href="#" class="hidden sm:inline-flex ml-5 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-3">
+                    <Link :href="route('subscription.index')" class="hidden sm:inline-flex ml-5 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-3">
                         Upgrade
-                    </a>
+                    </Link>
                     <Dropdown>
                         <template #trigger>
                             <profile-nav/>
@@ -52,6 +52,7 @@
 import Dropdown from "@/Components/Dropdown.vue";
 import ProfileNav from "@/Components/ProfileNav.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
+import {Link} from "@inertiajs/inertia-vue3";
 </script>
 
 <style scoped>

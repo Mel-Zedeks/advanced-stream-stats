@@ -47,4 +47,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'meta' => 'array',
     ];
+
+
+    protected $appends=['full_name'];
+
+    public function getFullNameAttribute()
+    {
+        return $this->firs_name." ".$this->last_name;
+    }
 }
