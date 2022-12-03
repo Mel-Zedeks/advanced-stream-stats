@@ -35,17 +35,28 @@
 </template>
 
 <script setup>
-import {defineProps} from "vue";
+import {defineProps, onMounted} from "vue";
 import dropIn from "braintree-web-drop-in"
+import {useForm} from "@inertiajs/inertia-vue3";
 
 const dropInRef = ref(null)
-defineProps({
+const props = defineProps({
     plan: Object,
-    userToken:String
+    userToken: String
+})
+const form = useForm({
+    paymentMethodNonce: "",
+})
+const dropInInstance = ref(null);
+const paypalConfig = ref({
+    flow: "vault",
+    amount: props.price,
+    currency: props.currencyIsoCode,
+    displayName: "Advanced Stream Stats"
 })
 onMounted(() => {
     dropIn.create({
-        authorization: props.clientToken,
+        authorization: props.userToken,
         container: dropInRef.value,
         locale: "en_US",
         // threeDSecure: true,
@@ -66,6 +77,16 @@ onMounted(() => {
         console.log(error)
     });
 })
+function submit() {
+    dropInInstance.value.requestPaymentMethod().then((payload) => {
+        form.paymentMethodNonce = payload.nonce
+        // dropInInstance.value.clearSelectedPaymentMethod()
+        form.post(route('checkout.store'))
+    }).catch((error) => {
+        console.log(error)
+    })
+
+}
 
 </script>
 
