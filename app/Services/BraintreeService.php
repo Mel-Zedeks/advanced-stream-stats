@@ -5,6 +5,7 @@ namespace App\Services;
 use Braintree\Configuration;
 
 use Braintree\Gateway;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 
 class BraintreeService
@@ -39,8 +40,49 @@ class BraintreeService
         ]);
     }
 
-    public function getPlans(){
+    public function getPlans()
+    {
         return $this->gateway->plan()->all();
+    }
+
+    public function subscribe(array $data)
+    {
+        if (!$this->hasPaymentMethod()) {
+            $this->addPaymentMethod($data["paymentMethodNonce"]);
+        }
+        return $this->gateway->subscription()->create($data);
+    }
+
+    public function addPaymentMethod($nonce)
+    {
+        return $this->gateway->paymentMethod()->create([
+            'customerId' => request()->user()->btId(),
+            'paymentMethodNonce' => $nonce,
+            'options' => [
+                'failOnDuplicatePaymentMethod' => true,
+                'verifyCard' => true
+            ]
+        ]);
+    }
+
+    private function hasPaymentMethod()
+    {
+        return !is_null($this->paymentMethods());
+    }
+
+    public function findPaymentMethod($token)
+    {
+        return $this->gateway->paymentMethod()->find($token);
+    }
+
+    public function getCustomer()
+    {
+        return $this->gateway->customer()->find(request()->user()->btId());
+    }
+
+    public function paymentMethods()
+    {
+        return $this->getCustomer()->paymentMethods;
     }
 
 }

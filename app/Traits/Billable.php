@@ -67,4 +67,5 @@ trait Billable
     {
         return $this->service->createToken($this->btId());
     }
+
 }

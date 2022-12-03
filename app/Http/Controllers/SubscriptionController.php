@@ -6,6 +6,7 @@ use App\Models\Plan;
 use App\Services\BraintreeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class SubscriptionController extends Controller
@@ -28,15 +29,22 @@ class SubscriptionController extends Controller
     public function create(Request $request, $plan)
     {
         $plans = $this->service->getPlans();
-        $plan=Arr::get($plans,$plan);
-//        dd($plan);
+
+        $plan=Arr::first(Arr::where($plans,function ($_plan) use ($plan){
+            return $_plan->id == $plan;
+        }));
         $userToken = $request->user()->getToken();
         return Inertia::render('Subscription/Create',
             compact('plan', 'userToken'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        $data = $request->validate([
+            "paymentMethodNonce" => "required|string",
+            "planId" => "required|string"
+        ]);
 
+        $this->service->subscribe($data);
     }
 }
