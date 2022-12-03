@@ -46,6 +46,7 @@ const props = defineProps({
 })
 const form = useForm({
     paymentMethodNonce: "",
+    planId: props.plan.id,
 })
 const dropInInstance = ref(null);
 const paypalConfig = ref({
@@ -81,7 +82,7 @@ function submit() {
     dropInInstance.value.requestPaymentMethod().then((payload) => {
         form.paymentMethodNonce = payload.nonce
         // dropInInstance.value.clearSelectedPaymentMethod()
-        form.post(route('checkout.store'))
+        form.post(route('subscription.store'))
     }).catch((error) => {
         console.log(error)
     })

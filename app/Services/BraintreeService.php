@@ -50,7 +50,14 @@ class BraintreeService
         if (!$this->hasPaymentMethod()) {
             $this->addPaymentMethod($data["paymentMethodNonce"]);
         }
-        return $this->gateway->subscription()->create($data);
+        $subscription = $this->gateway->subscription()->create($data);
+        $user = request()->user();
+        $user->forceFill([
+            "meta" => array_merge($user->meta, [
+                "subscription_id" => $subscription->id
+            ])
+        ])->save();
+        return $subscription;
     }
 
     public function addPaymentMethod($nonce)

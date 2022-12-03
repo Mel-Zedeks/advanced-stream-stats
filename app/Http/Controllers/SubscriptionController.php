@@ -45,6 +45,6 @@ class SubscriptionController extends Controller
             "planId" => "required|string"
         ]);
 
-        $this->service->subscribe($data);
+        return $this->service->subscribe($data);
     }
 }
