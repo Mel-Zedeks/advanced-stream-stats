@@ -18,25 +18,25 @@
                 <input type="hidden" name="remember" value="true">
                 <div class="">
                     <label class="ml-3 text-sm font-bold text-gray-700 tracking-wide">First Name</label>
-                    <input
+                    <input name="first_name"
                         class=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
                         type="text" placeholder="" v-model="form.first_name">
                 </div>
                 <div class="">
                     <label class="ml-3 text-sm font-bold text-gray-700 tracking-wide">Last Name</label>
-                    <input
+                    <input name="last_name"
                         class=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
                         type="text" placeholder="" v-model="form.last_name">
                 </div>
                 <div class="">
                     <label class="ml-3 text-sm font-bold text-gray-700 tracking-wide">Email</label>
-                    <input
+                    <input name="email"
                         class=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
                         type="email" placeholder="mail@mail.com" v-model="form.email">
                 </div>
                 <div class="">
                     <label class="ml-3 text-sm font-bold text-gray-700 tracking-wide">Twitch Username</label>
-                    <input
+                    <input name="twitch_username"
                         class=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
                         type="text" placeholder="" v-model="form.twitch_username">
                 </div>

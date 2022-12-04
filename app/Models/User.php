@@ -7,6 +7,8 @@ use App\Traits\Billable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -53,6 +55,7 @@ class User extends Authenticatable
 
     public function getFullNameAttribute()
     {
-        return $this->firs_name." ".$this->last_name;
+        return $this->first_name." ".$this->last_name;
     }
+
 }

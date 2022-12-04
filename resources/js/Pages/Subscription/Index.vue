@@ -26,7 +26,7 @@
 <script setup>
 
 import PricingPlanCard from "@/Components/PricingPlanCard.vue";
-import {defineProps} from "vue";
+
 import {Inertia} from "@inertiajs/inertia";
 
 defineProps({

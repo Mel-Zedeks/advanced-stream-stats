@@ -37,6 +37,7 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
+                'subscription' => $request->user()?$request->user()->currentSubscription():null,
             ],
             'app'=>[
               'name'=> config('app.name')
