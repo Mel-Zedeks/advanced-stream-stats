@@ -25,7 +25,7 @@
                         </svg>
                     </button>
 
-                    <Link :href="route('subscription.index')" class="hidden sm:inline-flex ml-5 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-3">
+                    <Link v-if="$page.props.auth.subscription===null" :href="route('subscription.index')" class="hidden sm:inline-flex ml-5 text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-3">
                         Upgrade
                     </Link>
                     <Dropdown>
@@ -33,9 +33,12 @@
                             <profile-nav/>
                         </template>
                         <template #content>
-<!--                            <DropdownLink :href="route('profile.edit')">-->
-<!--                                Profile-->
-<!--                            </DropdownLink>-->
+                            <DropdownLink :href="route('dashboard')">
+                                Profile
+                            </DropdownLink>
+                            <DropdownLink :href="route('subscription.show')">
+                                Subscriptions
+                            </DropdownLink>
                             <DropdownLink :href="route('logout')" method="post" as="button">
                                 Log Out
                             </DropdownLink>

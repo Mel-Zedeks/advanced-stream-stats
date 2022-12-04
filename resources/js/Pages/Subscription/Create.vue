@@ -3,6 +3,11 @@
         <div
             class="flex justify-center flex-col items-center w-full h-screen">
 
+            <div class="text-red-600" v-if="form.errors">
+                <ul>
+                    <li v-for="(error,eindex) in form.errors" :key="eindex">{{ error }}</li>
+                </ul>
+            </div>
             <div class="">
                 <p class="space-x-4"><span>Selected Plan</span><span
                     class="text-xl text-center font-bold text-blue-600">{{ plan.name }}</span></p>
@@ -35,7 +40,7 @@
 </template>
 
 <script setup>
-import {defineProps, onMounted, ref} from "vue";
+import { onMounted, ref} from "vue";
 import dropIn from "braintree-web-drop-in"
 import {useForm} from "@inertiajs/inertia-vue3";
 
